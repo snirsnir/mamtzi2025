@@ -388,38 +388,38 @@
     <script>
         // Track navigation state
 // Track navigation state
+// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Try multiple methods to ensure scrolling works in iframe
-    try {
-        // Method 1: Try scrolling the container
-        const container = document.querySelector('.container');
-        if (container) {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Progressive scroll function
+    function smoothScrollToTop(duration) {
+        const start = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        const startTime = performance.now();
+        
+        function scroll() {
+            const currentTime = performance.now();
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const easeInOutQuad = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            const position = start * (1 - easeInOutQuad(progress));
+            
+            window.scrollTo(0, position);
+            document.documentElement.scrollTop = position;
+            document.body.scrollTop = position;
+            
+            if (progress < 1) {
+                requestAnimationFrame(scroll);
+            }
         }
         
-        // Method 2: Try scrolling the HTML element
-        document.documentElement.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 3: Try scrolling the body
-        document.body.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 4: Send message to parent frame
-        window.parent.postMessage({
-            action: 'scroll',
-            top: 0
-        }, '*');
-    } catch (e) {
-        console.error('Scroll error:', e);
+        requestAnimationFrame(scroll);
     }
+    
+    // Execute smooth scroll
+    smoothScrollToTop(500); // 500ms duration
     
     // Hide all sections first
     const sections = document.querySelectorAll('.section');
