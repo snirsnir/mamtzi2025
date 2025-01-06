@@ -388,42 +388,39 @@
     <script>
         // Track navigation state
 // Track navigation state
-// Track navigation state
-// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isInIframe = window !== window.parent;
-
-    if (isIOS) {
-        // Simple direct approach for iOS
-        const container = document.querySelector('.container');
-        if (container) {
-            // Force immediate scroll
-            container.style.scrollBehavior = 'auto';
-            container.scrollTop = 0;
-            
-            // Then attempt smooth scroll
-            setTimeout(() => {
-                container.style.scrollBehavior = 'smooth';
-                container.scrollTop = 0;
-            }, 0);
-        }
-
-        // Additional attempt for iOS
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    } else {
-        // For non-iOS devices
+    // Try multiple methods to ensure scrolling works in iframe
+    try {
+        // Method 1: Try scrolling the container
         const container = document.querySelector('.container');
         if (container) {
             container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        
+        // Method 2: Try scrolling the HTML element
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 3: Try scrolling the body
+        document.body.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 4: Send message to parent frame
+        window.parent.postMessage({
+            action: 'scroll',
+            top: 0
+        }, '*');
+    } catch (e) {
+        console.error('Scroll error:', e);
     }
-
+    
     // Hide all sections first
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
@@ -435,23 +432,14 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
         
+        // Add to navigation stack if it's a new section
         if (navigationStack[navigationStack.length - 1] !== sectionId) {
             navigationStack.push(sectionId);
         }
         
+        // Show/hide back button
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
-
-        // Final scroll attempt for iOS
-        if (isIOS) {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-                const container = document.querySelector('.container');
-                if (container) container.scrollTop = 0;
-            }, 100);
-        }
     }
 }
 
