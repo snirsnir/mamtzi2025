@@ -13,12 +13,10 @@
         }
 
         html, body {
-    position: fixed;
-    width: 100%;
     height: 100%;
-    overflow: hidden;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 body {
@@ -29,17 +27,13 @@ body {
 }
 
 .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    scroll-behavior: smooth;
+    position: relative;
 }
+
 
 
         .counter {
@@ -65,8 +59,6 @@ body {
         }
 
         .main-content {
-    position: relative;
-    overflow: hidden;
     margin-top: 80px;
     background: white;
     padding: 40px;
@@ -404,48 +396,42 @@ body {
     <script>
         // Track navigation state
 // Track navigation state
+// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // iOS specific scroll solution
-    const scrollToTop = () => {
-        // Get the main container and all its parents
-        const elements = [
-            document.querySelector('.container'),
-            document.documentElement,
-            document.body,
-            window.frameElement,
-            window.parent.document.body
-        ].filter(Boolean); // Remove null/undefined elements
+    // iOS and iframe safe scrolling
+    try {
+        // Method 1: Scroll container
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
-        // Try to scroll each element
-        elements.forEach(element => {
-            try {
-                // Try immediate scroll first
-                element.scrollTop = 0;
-                
-                // Then try smooth scroll as fallback
-                element.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            } catch (e) {
-                // Ignore errors and try next element
-            }
+        // Method 2: Scroll document elements
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
 
-        // Use timeout as last resort for iOS
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }, 100);
-    };
+        document.body.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
 
-    // Execute scroll
-    scrollToTop();
+    } catch (e) {
+        // Fallback for older browsers
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollTop = 0;
+        }
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }
     
     // Hide all sections first
     const sections = document.querySelectorAll('.section');
@@ -468,7 +454,6 @@ function showSection(sectionId) {
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
     }
 }
-
         // Handle back navigation
         function goBack() {
             if (navigationStack.length > 1) {
