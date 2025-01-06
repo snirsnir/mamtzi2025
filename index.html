@@ -30,8 +30,9 @@ body {
     height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
     position: relative;
+    padding: 20px;
+    scroll-behavior: auto; /* Changed from smooth to auto */
 }
 
 
@@ -401,36 +402,22 @@ let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // iOS and iframe safe scrolling
-    try {
-        // Method 1: Scroll container
-        const container = document.querySelector('.container');
-        if (container) {
-            container.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Method 2: Scroll document elements
-        document.documentElement.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-        document.body.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-    } catch (e) {
-        // Fallback for older browsers
-        const container = document.querySelector('.container');
-        if (container) {
+    // Scroll container to top for iframe
+    const container = document.querySelector('.container');
+    if (container) {
+        // Force immediate scroll first
+        container.scrollTop = 0;
+        
+        // Then apply smooth scroll
+        setTimeout(() => {
+            container.style.scrollBehavior = 'smooth';
             container.scrollTop = 0;
-        }
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
+            
+            // Reset scroll behavior after animation
+            setTimeout(() => {
+                container.style.scrollBehavior = 'auto';
+            }, 500);
+        }, 0);
     }
     
     // Hide all sections first
