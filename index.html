@@ -27,14 +27,13 @@ body {
 }
 
 .container {
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
     position: relative;
     padding: 20px;
-    scroll-behavior: auto; /* Changed from smooth to auto */
 }
-
 
 
         .counter {
@@ -402,22 +401,13 @@ let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Scroll container to top for iframe
-    const container = document.querySelector('.container');
-    if (container) {
-        // Force immediate scroll first
-        container.scrollTop = 0;
-        
-        // Then apply smooth scroll
-        setTimeout(() => {
-            container.style.scrollBehavior = 'smooth';
-            container.scrollTop = 0;
-            
-            // Reset scroll behavior after animation
-            setTimeout(() => {
-                container.style.scrollBehavior = 'auto';
-            }, 500);
-        }, 0);
+    // Scroll handling for iframe
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.parentNode.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
     
     // Hide all sections first
