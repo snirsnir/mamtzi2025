@@ -61,12 +61,40 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #64748b, #475569);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-family: 'Fredoka', sans-serif;
+            display: none;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
         h1 {
             font-size: 2.8em;
             margin-bottom: 40px;
             color: #1a365d;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #1a365d;
         }
 
         .description {
@@ -105,6 +133,15 @@
             background: linear-gradient(45deg, #64748b, #475569);
         }
 
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
         .grade-blocks {
             display: flex;
             justify-content: center;
@@ -126,11 +163,6 @@
             transform: translateY(-5px);
         }
 
-        .hidden {
-            display: none;
-        }
-
-        /* עיצוב לתוכן הקונספט */
         .concept-content {
             text-align: right;
             padding: 20px;
@@ -190,56 +222,17 @@
             font-size: 1.2em;
         }
 
-        .concept-footer {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .registration-note {
-            color: #2563eb;
-            font-weight: 600;
-            margin-top: 15px;
-        }
-
-        h3 {
-            color: #1a365d;
-            font-size: 1.5em;
-            margin: 30px 0 20px;
-            font-weight: 600;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* עיצוב טופס ההרשמה */
         .registration-form {
             text-align: right;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .registration-form h2 {
-            color: #1a365d;
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
-
-        .form-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
@@ -247,7 +240,7 @@
             color: #2d3748;
         }
 
-        .form-group input, 
+        .form-group input,
         .form-group select {
             padding: 10px;
             border: 1px solid #e2e8f0;
@@ -263,11 +256,11 @@
             box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
-        .form-group select {
-            background-color: white;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* מדיה קוורי לסלולר */
         @media (max-width: 768px) {
             .counter {
                 position: relative;
@@ -298,6 +291,8 @@
     </style>
 </head>
 <body>
+    <button onclick="goBack()" class="back-button">חזור</button>
+    
     <div class="container">
         <div class="counter">
             <div>כמה מקומות נשארו?</div>
@@ -305,141 +300,158 @@
         </div>
 
         <div class="main-content">
-            <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
-            
-            <div class="description">
-                <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
-                <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
-                <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
-                <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
-                <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
-                <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
-            </div>
-            
-
-            <button class="button" onclick="showNextSection()">הבא</button>
-
-            <div id="next-section" class="hidden">
-                <h2 class="fade-in">למי מיועדת התחרות?</h2>
+            <!-- Section 1: Welcome -->
+            <div id="section1" class="section active">
+                <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
                 
-                <div class="grade-blocks fade-in">
+                <div class="description">
+                    <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
+                    <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
+                    <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
+                    <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
+                    <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
+                    <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
+                </div>
+
+                <button class="button" onclick="showSection('section2')">הבא</button>
+            </div>
+
+            <!-- Section 2: Age Groups -->
+            <div id="section2" class="section">
+                <h2>למי מיועדת התחרות?</h2>
+                
+                <div class="grade-blocks">
                     <div class="grade-block">כיתות ד׳</div>
                     <div class="grade-block">כיתות ה׳</div>
                     <div class="grade-block">כיתות ו׳</div>
                 </div>
 
-                <p class="fade-in" style="margin: 30px 0;">האם אתם בטווח הגילאים? / צוות הוראה?</p>
+                <p style="margin: 30px 0;">האם אתם בטווח הגילאים? / צוות הוראה?</p>
                 
-                <div class="fade-in">
-                    <button class="button" onclick="showPositiveResponse()">כן</button>
-                    <button class="button secondary" onclick="showNegativeResponse()">לא</button>
-                </div>
+                <button class="button" onclick="showSection('section3')">כן</button>
+                <button class="button secondary" onclick="showSection('negative-response')">לא</button>
+            </div>
 
-                <div id="positive-response" class="hidden fade-in">
-                    <div class="concept-content">
-                        <p class="response-title">מעולה! אתם בטווח הגילאים המתאים לתחרות.</p>
-                        <p>כפי שכתבנו קודם לכן, השנה הקונספט שלנו מתחדש!</p>
-                        
-                        <div class="concept-block">
-                            <p>אנחנו מזמינים 80 קבוצות נבחרות (עד 2 קבוצות מכל בית ספר) להשתתף בתהליך ייחודי של פיתוח והמצאה. כל קבוצה תכלול 4 משתתפים.</p>
+            <!-- Section 3: Positive Response -->
+            <div id="section3" class="section">
+                <div class="concept-content">
+                    <p class="response-title">מעולה! אתם בטווח הגילאים המתאים לתחרות.</p>
+                    <p>כפי שכתבנו קודם לכן, השנה הקונספט שלנו מתחדש!</p>
+                    
+                    <div class="concept-block">
+                        <p>אנחנו מזמינים 80 קבוצות נבחרות (עד 2 קבוצות מכל בית ספר) להשתתף בתהליך ייחודי של פיתוח והמצאה. כל קבוצה תכלול 4 משתתפים.</p>
+                    </div>
+
+                    <h3>התחרות מתחלקת ל-2 שלבים:</h3>
+                    
+                    <div class="stages">
+                        <div class="stage">
+                            <h4>1. שלב ההכנה וחשיפת האתגר השנתי (פברואר-יוני 2025):</h4>
+                            <ul>
+                                <li>מפגשי זום אשר יספקו לכם ידע מקדים בנושא פיתוח ופרסום מוצר כהכנה ליום השיא</li>
+                                <li>פעילויות דיגיטליות משלימות למפגשי הזום</li>
+                                <li>חשיפת האתגר השנתי</li>
+                            </ul>
                         </div>
 
-                        <h3>התחרות מתחלקת ל-2 שלבים:</h3>
-                        
-                        <div class="stages">
-                            <div class="stage">
-                                <h4>1. שלב ההכנה וחשיפת האתגר השנתי (פברואר-יוני 2025):</h4>
-                                <ul>
-                                    <li> מפגשי זום אשר יספקו לכם ידע מקדים בנושא פיתוח ופרסום מוצר כהכנה ליום השיא</li>
-                                    <li> פעילויות דיגיטליות משלימות למפגשי הזום</li>
-                                    <li>חשיפת האתגר השנתי</li>
-                                </ul>
-                            </div>
-
-                            <div class="stage">
-                                <h4>2. יום השיא - האקתון הממציא.ה הצעיר.ה 2025:</h4>
-                                <ul>
-                                    <li>הגעה אל הטכנודע</li>
-                                    <li>מציאת פתרון לאתגר השנתי במתחמים מקצועיים</li>
-                                    <li>בניית אב-טיפוס בזמן אמת</li>
-                                    <li>השתתפות בטקס נושא פרסים בו נכריז על הזוכים</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="concept-footer">
-                            <p>זוהי הזדמנות ייחודית לחוות תהליך המצאה אמיתי, מקצועי ומאתגר!</p>
-                            <p class="registration-note">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
-                            <div style="margin-top: 20px;">
-                                <button class="button" onclick="showRegistrationForm()">מעוניינים להירשם?</button>
-                            </div>
+                        <div class="stage">
+                            <h4>2. יום השיא - האקתון הממציא.ה הצעיר.ה 2025:</h4>
+                            <ul>
+                                <li>הגעה אל הטכנודע</li>
+                                <li>מציאת פתרון לאתגר השנתי במתחמים מקצועיים</li>
+                                <li>בניית אב-טיפוס בזמן אמת</li>
+                                <li>השתתפות בטקס נושא פרסים בו נכריז על הזוכים</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
 
-                <div id="negative-response" class="hidden fade-in">
-                    <p style="margin: 30px 0; font-size: 1.2em;">מצטערים, נשמח לשמוע מכם בעתיד</p>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p>זוהי הזדמנות ייחודית לחוות תהליך המצאה אמיתי, מקצועי ומאתגר!</p>
+<p class="registration-note" style="color: #2563eb; font-weight: 600; margin-top: 15px;">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
+                        <button class="button" onclick="showRegistrationForm()">מעוניינים להירשם?</button>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Negative Response Section -->
+            <div id="negative-response" class="section">
+                <p style="margin: 30px 0; font-size: 1.2em;">מצטערים, נשמח לשמוע מכם בעתיד</p>
+            </div>
+
+            <!-- Registration Form Section -->
+            <div id="registration-form" class="section">
+                <!-- Form will be dynamically inserted here -->
             </div>
         </div>
     </div>
 
     <script>
-const COUNTER_API = 'https://api.allorigins.win/get?url=https://script.google.com/macros/s/AKfycbyCNJP3zm5jejUu_7ADusof_uONIveMpL3bGVEnAxZlT1xQ0ywfBGqzsPwDEfeTWAgG7w/exec';
+        // Track navigation state
+        let navigationStack = ['section1'];
 
-let lastUpdateTime = null;
-
-async function updateCounter() {
-    try {
-        const response = await fetch(COUNTER_API);
-        const data = await response.json();
-        const contents = JSON.parse(data.contents);
-        
-        console.log('Received data:', contents); // לדיבוג
-        
-        // עדכון הקאונטר בכל מקרה
-        if (contents.remainingSpots !== undefined) {
-            document.querySelector('.counter-number').textContent = contents.remainingSpots;
+        // Show/hide sections
+        function showSection(sectionId) {
+            // Hide all sections first
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
             
-            // בדיקה אם נגמרו המקומות
-            if (contents.remainingSpots <= 0) {
-                const registerButton = document.querySelector('button[onclick="showRegistrationForm()"]');
-                if (registerButton) {
-                    registerButton.disabled = true;
-                    registerButton.textContent = 'ההרשמה הסתיימה';
-                    registerButton.style.backgroundColor = '#ccc';
+            // Show the selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Add to navigation stack if it's a new section
+                if (navigationStack[navigationStack.length - 1] !== sectionId) {
+                    navigationStack.push(sectionId);
                 }
+                
+                // Show/hide back button
+                const backButton = document.querySelector('.back-button');
+                backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
             }
         }
-    } catch (error) {
-        console.error('Error updating counter:', error);
-    }
-}
 
-// קריאה ראשונית בטעינת הדף
-document.addEventListener('DOMContentLoaded', () => {
-    updateCounter();
-    // עדכון כל 30 שניות
-    setInterval(updateCounter, 30000);
-});
-        // פונקציות קיימות שצריך לשמור
-        function showNextSection() {
-            const nextSection = document.getElementById('next-section');
-            nextSection.classList.remove('hidden');
+        // Handle back navigation
+        function goBack() {
+            if (navigationStack.length > 1) {
+                // Remove current section from stack
+                navigationStack.pop();
+                // Show previous section
+                showSection(navigationStack[navigationStack.length - 1]);
+            }
         }
-    
-        function showPositiveResponse() {
-            document.getElementById('positive-response').classList.remove('hidden');
-            document.getElementById('negative-response').classList.add('hidden');
+
+        // Counter functionality
+        const COUNTER_API = 'https://api.allorigins.win/get?url=https://script.google.com/macros/s/AKfycbyCNJP3zm5jejUu_7ADusof_uONIveMpL3bGVEnAxZlT1xQ0ywfBGqzsPwDEfeTWAgG7w/exec';
+
+        async function updateCounter() {
+            try {
+                const response = await fetch(COUNTER_API);
+                const data = await response.json();
+                const contents = JSON.parse(data.contents);
+                
+                if (contents.remainingSpots !== undefined) {
+                    document.querySelector('.counter-number').textContent = contents.remainingSpots;
+                    
+                    if (contents.remainingSpots <= 0) {
+                        const registerButtons = document.querySelectorAll('button[onclick*="registration"]');
+                        registerButtons.forEach(button => {
+                            button.disabled = true;
+                            button.textContent = 'ההרשמה הסתיימה';
+                            button.style.backgroundColor = '#ccc';
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating counter:', error);
+            }
         }
-    
-        function showNegativeResponse() {
-            document.getElementById('negative-response').classList.remove('hidden');
-            document.getElementById('positive-response').classList.add('hidden');
-        }
-    
+
+        // Registration form handling
         function showRegistrationForm() {
-            document.querySelector('.main-content').innerHTML = `
+            const formContent = `
                 <div class="registration-form fade-in">
                     <h2>טופס הרשמה</h2>
                     <form id="registration-form" onsubmit="handleSubmit(event)">
@@ -447,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <label>שם הקבוצה:</label>
                             <input type="text" name="entry.1501747901" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label>שם מלא תלמיד 1:</label>
                             <input type="text" name="entry.337104534" required>
@@ -459,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <option value="ו'">ו'</option>
                             </select>
                         </div>
-    
+
                         <div class="form-group">
                             <label>שם מלא תלמיד 2:</label>
                             <input type="text" name="entry.1241420345" required>
@@ -471,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <option value="ו'">ו'</option>
                             </select>
                         </div>
-    
+
                         <div class="form-group">
                             <label>שם מלא תלמיד 3:</label>
                             <input type="text" name="entry.250133679">
@@ -483,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <option value="ו'">ו'</option>
                             </select>
                         </div>
-    
+
                         <div class="form-group">
                             <label>שם מלא תלמיד 4:</label>
                             <input type="text" name="entry.619692049">
@@ -495,53 +507,56 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <option value="ו'">ו'</option>
                             </select>
                         </div>
-    
+
                         <div class="form-group">
                             <label>בית ספר:</label>
                             <input type="text" name="entry.1312322544" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label>עיר:</label>
                             <input type="text" name="entry.1667706494" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label>שם המורה:</label>
                             <input type="text" name="entry.1338933244" required>
                         </div>
-    
+
                         <div class="form-group">
-                            <label>מספר טלפון של מלווה את התלמידים ביום האירוע (ניתן לשינוי בהמשך)  :</label>
+                            <label>מספר טלפון של מלווה את התלמידים ביום האירוע (ניתן לשינוי בהמשך):</label>
                             <input type="tel" name="entry.216829879" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label>כתובת דוא"ל של מלווה:</label>
                             <input type="email" name="entry.2038100038" required>
                         </div>
-    
+
                         <button type="submit" class="button">שלח/י טופס</button>
                     </form>
                 </div>
             `;
+            
+            document.getElementById('registration-form').innerHTML = formContent;
+            showSection('registration-form');
         }
-    
+
+        // Form submission handling
         async function handleSubmit(event) {
             event.preventDefault();
             const form = event.target;
             const formData = new FormData(form);
-    
+
             try {
                 await fetch('https://docs.google.com/forms/d/e/1FAIpQLSdauOOJX42gG8zby4wGWlT0cdZtG1zSD5b_jU3zMBf77nKipA/formResponse', {
                     method: 'POST',
                     body: formData,
                     mode: 'no-cors'
                 });
-    
-                // המתנה קצרה לעדכון הגיליון
+
                 setTimeout(updateCounter, 2000);
-    
+
                 document.querySelector('.registration-form').innerHTML = `
                     <div class="success-message fade-in" style="text-align: center; padding: 40px;">
                         <h2 style="color: #2563eb; margin-bottom: 20px;">ההרשמה הצליחה!</h2>
@@ -553,9 +568,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error:', error);
             }
         }
-    
-        // קריאה לפונקציית עדכון הקאונטר בטעינת העמוד
-        document.addEventListener('DOMContentLoaded', updateCounter);
+
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize counter updates
+            updateCounter();
+            // Set interval for counter updates (every 30 seconds)
+            setInterval(updateCounter, 30000);
+            
+            // Show initial section
+            showSection('section1');
+        });
     </script>
 </body>
 </html>
