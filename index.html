@@ -367,7 +367,7 @@
 
                     <div style="text-align: center; margin-top: 30px;">
                         <p>זוהי הזדמנות ייחודית לחוות תהליך המצאה אמיתי, מקצועי ומאתגר!</p>
-<p class="registration-note" style="color: #2563eb; font-weight: 600; margin-top: 15px;">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
+                        <p class="registration-note" style="color: #2563eb; font-weight: 600; margin-top: 15px;">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
                         <button class="button" onclick="showRegistrationForm()">מעוניינים להירשם?</button>
                     </div>
                 </div>
@@ -391,6 +391,12 @@
 
         // Show/hide sections
         function showSection(sectionId) {
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             // Hide all sections first
             const sections = document.querySelectorAll('.section');
             sections.forEach(section => {
