@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>האקתון הממציא הצעיר 2025</title>
     <script src="https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <script>smoothscroll.polyfill();</script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -387,35 +388,41 @@
     </div>
 
     <script>
-        // Track navigation state
-// Track navigation state
-document.addEventListener('DOMContentLoaded', () => {
-    smoothscroll.polyfill(); // הפעלת הפוליפיל לגלילה חלקה
-});
+
 
 // שמירה על מצב הניווט
+// Track navigation state
 let navigationStack = ['section1'];
 
-// פונקציה להצגת מקטעים וגלילה למעלה
+// Show/hide sections
 function showSection(sectionId) {
-    // הסתרת כל המקטעים
+    // Scroll handling with polyfill support
+    const container = document.querySelector('.container');
+    if (container) {
+        container.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'start'
+        });
+    }
+    
+    // Hide all sections first
     const sections = document.querySelectorAll('.section');
-    sections.forEach(section => section.classList.remove('active'));
-
-    // הצגת המקטע הנבחר
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show the selected section
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
-
-        // גלילה לחלק העליון של העמוד
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // הוספת המקטע הנבחר לערימת הניווט
+        
+        // Add to navigation stack if it's a new section
         if (navigationStack[navigationStack.length - 1] !== sectionId) {
             navigationStack.push(sectionId);
         }
-
-        // עדכון תצוגת כפתור החזרה
+        
+        // Show/hide back button
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
     }
