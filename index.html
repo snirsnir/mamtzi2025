@@ -387,37 +387,38 @@
 
     <script>
         // Track navigation state
-        let navigationStack = ['section1'];
+// Track navigation state
+let navigationStack = ['section1'];
 
-        // Show/hide sections
-        function showSection(sectionId) {
-            // Scroll to top smoothly
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Hide all sections first
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                
-                // Add to navigation stack if it's a new section
-                if (navigationStack[navigationStack.length - 1] !== sectionId) {
-                    navigationStack.push(sectionId);
-                }
-                
-                // Show/hide back button
-                const backButton = document.querySelector('.back-button');
-                backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
-            }
+// Show/hide sections
+function showSection(sectionId) {
+    // Scroll container to top smoothly
+    const container = document.querySelector('.container');
+    if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Hide all sections first
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show the selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+        
+        // Add to navigation stack if it's a new section
+        if (navigationStack[navigationStack.length - 1] !== sectionId) {
+            navigationStack.push(sectionId);
         }
+        
+        // Show/hide back button
+        const backButton = document.querySelector('.back-button');
+        backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
+    }
+}
 
         // Handle back navigation
         function goBack() {
