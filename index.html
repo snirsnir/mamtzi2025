@@ -392,37 +392,33 @@ let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // iOS detection
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-    if (isIOS) {
-        // iOS specific scrolling
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-        
-        // Force layout recalculation
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // Trigger reflow
-        document.body.style.display = '';
-        
-        // Delayed scroll for iOS
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }, 10);
-    } else {
-        // Non-iOS devices
-        try {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } catch (e) {
-            window.scrollTo(0, 0);
+    // Try multiple methods to ensure scrolling works in iframe
+    try {
+        // Method 1: Try scrolling the container
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        
+        // Method 2: Try scrolling the HTML element
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 3: Try scrolling the body
+        document.body.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 4: Send message to parent frame
+        window.parent.postMessage({
+            action: 'scroll',
+            top: 0
+        }, '*');
+    } catch (e) {
+        console.error('Scroll error:', e);
     }
     
     // Hide all sections first
@@ -444,15 +440,6 @@ function showSection(sectionId) {
         // Show/hide back button
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
-        
-        // Additional scroll for iOS after content change
-        if (isIOS) {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-            }, 100);
-        }
     }
 }
 
