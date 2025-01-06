@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>האקתון הממציא הצעיר 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -388,56 +389,33 @@
     <script>
         // Track navigation state
 // Track navigation state
+document.addEventListener('DOMContentLoaded', () => {
+    smoothscroll.polyfill(); // הפעלת הפוליפיל לגלילה חלקה
+});
+
+// שמירה על מצב הניווט
 let navigationStack = ['section1'];
 
-// Show/hide sections
+// פונקציה להצגת מקטעים וגלילה למעלה
 function showSection(sectionId) {
-    // Try multiple methods to ensure scrolling works in iframe
-    try {
-        // Method 1: Try scrolling the container
-        const container = document.querySelector('.container');
-        if (container) {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
-        // Method 2: Try scrolling the HTML element
-        document.documentElement.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 3: Try scrolling the body
-        document.body.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 4: Send message to parent frame
-        window.parent.postMessage({
-            action: 'scroll',
-            top: 0
-        }, '*');
-    } catch (e) {
-        console.error('Scroll error:', e);
-    }
-    
-    // Hide all sections first
+    // הסתרת כל המקטעים
     const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show the selected section
+    sections.forEach(section => section.classList.remove('active'));
+
+    // הצגת המקטע הנבחר
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
-        
-        // Add to navigation stack if it's a new section
+
+        // גלילה לחלק העליון של העמוד
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // הוספת המקטע הנבחר לערימת הניווט
         if (navigationStack[navigationStack.length - 1] !== sectionId) {
             navigationStack.push(sectionId);
         }
-        
-        // Show/hide back button
+
+        // עדכון תצוגת כפתור החזרה
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
     }
