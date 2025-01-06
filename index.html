@@ -393,47 +393,64 @@ let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Scroll solution for iframe and all devices
-    const scrollToTop = () => {
-        try {
-            // Check if we're in an iframe
-            const isInIframe = window !== window.parent;
-            
-            if (isInIframe) {
-                // Focus on iframe elements
-                const container = document.querySelector('.container');
-                const mainContent = document.querySelector('.main-content');
-                
-                if (container) container.scrollTop = 0;
-                if (mainContent) mainContent.scrollTop = 0;
-            } else {
-                // If not in iframe, try all possible scroll methods
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-            }
+    // iOS Detection
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-            // For iOS Safari specifically
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                setTimeout(() => {
-                    const elements = [
-                        document.documentElement,
-                        document.body,
-                        document.querySelector('.container'),
-                        document.querySelector('.main-content')
-                    ];
-                    
-                    elements.forEach(element => {
-                        if (element) element.scrollTop = 0;
-                    });
-                }, 100);
+    const scrollTopForIOS = () => {
+        if (!isIOS) return;
+
+        // Force reflow
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // Trigger reflow
+        document.body.style.display = '';
+
+        // iOS specific scrolling
+        const elements = [
+            window,
+            document.documentElement,
+            document.body,
+            document.querySelector('.container'),
+            document.querySelector('.main-content')
+        ];
+
+        elements.forEach(element => {
+            if (element) {
+                try {
+                    element.scrollTo(0, 0);
+                    element.scrollTop = 0;
+                } catch (e) {}
             }
-        } catch (e) {
-            console.error('Scroll error:', e);
+        });
+
+        // Additional iOS scroll attempts
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTo(0, 0);
+            document.body.scrollTo(0, 0);
+            
+            const container = document.querySelector('.container');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (container) container.scrollTo(0, 0);
+            if (mainContent) mainContent.scrollTo(0, 0);
+        }, 100);
+    };
+
+    const scrollToTop = () => {
+        if (isIOS) {
+            scrollTopForIOS();
+        } else {
+            // Non-iOS scrolling
+            const container = document.querySelector('.container');
+            if (container) {
+                container.scrollTop = 0;
+                container.scrollIntoView({ behavior: 'auto', block: 'start' });
+            }
         }
     };
 
-    // Multiple scroll attempts with timing
+    // Execute scroll with multiple attempts
     scrollToTop();
     setTimeout(scrollToTop, 50);
     setTimeout(scrollToTop, 150);
@@ -458,8 +475,13 @@ function showSection(sectionId) {
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
 
-        // Final scroll attempt after content change
-        setTimeout(scrollToTop, 250);
+        // Additional scroll attempts after content change
+        if (isIOS) {
+            setTimeout(scrollTopForIOS, 200);
+            setTimeout(scrollTopForIOS, 400);
+        } else {
+            setTimeout(scrollToTop, 200);
+        }
     }
 }
 
