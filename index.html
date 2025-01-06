@@ -303,20 +303,31 @@
 
     <div class="main-content">
         <!-- Section 1: Welcome -->
-        <div id="section1" class="section active">
-            <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
-            
-            <div class="description">
-                <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
-                <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
-                <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
-                <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
-                <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
-                <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
-            </div>
+<!-- Section 1a: Welcome Part 1 -->
+<div id="section1a" class="section active">
+    <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
+    
+    <div class="description">
+        <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
+        <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
+        <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
+    </div>
 
-            <button class="button" onclick="showSection('section2')">הבא</button>
-        </div>
+    <button class="button" onclick="showSection('section1b')">הבא</button>
+</div>
+
+<!-- Section 1b: Welcome Part 2 -->
+<div id="section1b" class="section">
+    <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
+    
+    <div class="description">
+        <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
+        <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
+        <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
+    </div>
+
+    <button class="button" onclick="showSection('section2')">הבא</button>
+</div>
 
         <!-- Section 2: Age Groups -->
         <div id="section2" class="section">
@@ -397,7 +408,7 @@
 
 // שמירה על מצב הניווט
 // Track navigation state
-let navigationStack = ['section1'];
+let navigationStack = ['section1a'];
 
 // Show/hide sections
 function showSection(sectionId) {
@@ -597,7 +608,7 @@ function showSection(sectionId) {
             setInterval(updateCounter, 30000);
             
             // Show initial section
-            showSection('section1');
+            showSection('section1a');
         });
     </script>
 </body>
