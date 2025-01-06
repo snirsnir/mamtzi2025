@@ -295,97 +295,102 @@
 <body>
     <button onclick="goBack()" class="back-button">חזור</button>
     
-    <div class="container">
-        <div class="counter">
-            <div>כמה מקומות נשארו?</div>
-            <div class="counter-number">80</div>
+<div class="container">
+    <div class="counter">
+        <div>כמה מקומות נשארו?</div>
+        <div class="counter-number">80</div>
+    </div>
+
+    <div class="main-content">
+        <!-- Section 1: Welcome -->
+        <div id="section1" class="section active">
+            <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
+            
+            <div class="description">
+                <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
+                <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
+                <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
+                <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
+                <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
+                <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
+            </div>
+
+            <button class="button" onclick="showSection('section2')">הבא</button>
         </div>
 
-        <div class="main-content">
-            <!-- Section 1: Welcome -->
-            <div id="section1" class="section active">
-                <h1>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025</h1>
+        <!-- Section 2: Age Groups -->
+        <div id="section2" class="section">
+            <h2>למי מיועדת התחרות?</h2>
+            
+            <div class="grade-blocks">
+                <div class="grade-block">כיתות ד׳</div>
+                <div class="grade-block">כיתות ה׳</div>
+                <div class="grade-block">כיתות ו׳</div>
+            </div>
+
+            <p style="margin: 30px 0;">האם אתם בטווח הגילאים? / צוות הוראה?</p>
+            
+            <button class="button" onclick="showSection('section3')">כן</button>
+            <button class="button secondary" onclick="showSection('negative-response')">לא</button>
+        </div>
+
+        <!-- Section 3: Positive Response -->
+        <div id="section3" class="section">
+            <div class="concept-content">
+                <p class="response-title">מעולה! אתם בטווח הגילאים המתאים לתחרות.</p>
+                <p>כפי שכתבנו קודם לכן, השנה הקונספט שלנו מתחדש!</p>
                 
-                <div class="description">
-                    <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
-                    <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
-                    <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
-                    <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
-                    <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
-                    <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
+                <div class="concept-block">
+                    <p>אנחנו מזמינים 80 קבוצות נבחרות (עד 2 קבוצות מכל בית ספר) להשתתף בתהליך ייחודי של פיתוח והמצאה. כל קבוצה תכלול 4 משתתפים.</p>
                 </div>
 
-                <button class="button" onclick="showSection('section2')">הבא</button>
-            </div>
-
-            <!-- Section 2: Age Groups -->
-            <div id="section2" class="section">
-                <h2>למי מיועדת התחרות?</h2>
+                <h3>התחרות מתחלקת ל-2 שלבים:</h3>
                 
-                <div class="grade-blocks">
-                    <div class="grade-block">כיתות ד׳</div>
-                    <div class="grade-block">כיתות ה׳</div>
-                    <div class="grade-block">כיתות ו׳</div>
+                <div class="stages">
+                    <div class="stage">
+                        <h4>1. שלב ההכנה וחשיפת האתגר השנתי (פברואר-יוני 2025):</h4>
+                        <ul>
+                            <li>מפגשי זום אשר יספקו לכם ידע מקדים בנושא פיתוח ופרסום מוצר כהכנה ליום השיא</li>
+                            <li>פעילויות דיגיטליות משלימות למפגשי הזום</li>
+                            <li>חשיפת האתגר השנתי</li>
+                        </ul>
+                    </div>
+
+                    <div class="stage">
+                        <h4>2. יום השיא - האקתון הממציא.ה הצעיר.ה 2025:</h4>
+                        <ul>
+                            <li>הגעה אל הטכנודע</li>
+                            <li>מציאת פתרון לאתגר השנתי במתחמים מקצועיים</li>
+                            <li>בניית אב-טיפוס בזמן אמת</li>
+                            <li>השתתפות בטקס נושא פרסים בו נכריז על הזוכים</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <p style="margin: 30px 0;">האם אתם בטווח הגילאים? / צוות הוראה?</p>
-                
-                <button class="button" onclick="showSection('section3')">כן</button>
-                <button class="button secondary" onclick="showSection('negative-response')">לא</button>
-            </div>
-
-            <!-- Section 3: Positive Response -->
-            <div id="section3" class="section">
-                <div class="concept-content">
-                    <p class="response-title">מעולה! אתם בטווח הגילאים המתאים לתחרות.</p>
-                    <p>כפי שכתבנו קודם לכן, השנה הקונספט שלנו מתחדש!</p>
-                    
-                    <div class="concept-block">
-                        <p>אנחנו מזמינים 80 קבוצות נבחרות (עד 2 קבוצות מכל בית ספר) להשתתף בתהליך ייחודי של פיתוח והמצאה. כל קבוצה תכלול 4 משתתפים.</p>
-                    </div>
-
-                    <h3>התחרות מתחלקת ל-2 שלבים:</h3>
-                    
-                    <div class="stages">
-                        <div class="stage">
-                            <h4>1. שלב ההכנה וחשיפת האתגר השנתי (פברואר-יוני 2025):</h4>
-                            <ul>
-                                <li>מפגשי זום אשר יספקו לכם ידע מקדים בנושא פיתוח ופרסום מוצר כהכנה ליום השיא</li>
-                                <li>פעילויות דיגיטליות משלימות למפגשי הזום</li>
-                                <li>חשיפת האתגר השנתי</li>
-                            </ul>
-                        </div>
-
-                        <div class="stage">
-                            <h4>2. יום השיא - האקתון הממציא.ה הצעיר.ה 2025:</h4>
-                            <ul>
-                                <li>הגעה אל הטכנודע</li>
-                                <li>מציאת פתרון לאתגר השנתי במתחמים מקצועיים</li>
-                                <li>בניית אב-טיפוס בזמן אמת</li>
-                                <li>השתתפות בטקס נושא פרסים בו נכריז על הזוכים</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 30px;">
-                        <p>זוהי הזדמנות ייחודית לחוות תהליך המצאה אמיתי, מקצועי ומאתגר!</p>
-                        <p class="registration-note" style="color: #2563eb; font-weight: 600; margin-top: 15px;">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
-                        <button class="button" onclick="showRegistrationForm()">מעוניינים להירשם?</button>
-                    </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <p>זוהי הזדמנות ייחודית לחוות תהליך המצאה אמיתי, מקצועי ומאתגר!</p>
+                    <p class="registration-note" style="color: #2563eb; font-weight: 600; margin-top: 15px;">ההרשמה פתוחה עד פברואר 2025, כל הקודם זוכה!</p>
+                    <button class="button" onclick="showRegistrationForm()">מעוניינים להירשם?</button>
                 </div>
             </div>
+        </div>
 
-            <!-- Negative Response Section -->
-            <div id="negative-response" class="section">
-                <p style="margin: 30px 0; font-size: 1.2em;">מצטערים, נשמח לשמוע מכם בעתיד</p>
-            </div>
+        <!-- Negative Response Section -->
+        <div id="negative-response" class="section">
+            <p style="margin: 30px 0; font-size: 1.2em;">מצטערים, נשמח לשמוע מכם בעתיד</p>
+        </div>
 
-            <!-- Registration Form Section -->
-            <div id="registration-form" class="section">
-                <!-- Form will be dynamically inserted here -->
-            </div>
+        <!-- Registration Form Section -->
+        <div id="registration-form" class="section">
+            <!-- Form will be dynamically inserted here -->
         </div>
     </div>
+
+    <!-- הודעת גלילה מחוץ לריבוע הלבן -->
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 30px; color: #64748b; font-size: 0.9em;">
+        נראה שהגעתם לסוף העמוד, גללו למעלה לתחילת העמוד
+    </div>
+</div>
 
     <script>
 
