@@ -392,10 +392,33 @@ let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Scroll container to top smoothly
-    const container = document.querySelector('.container');
-    if (container) {
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Try multiple methods to ensure scrolling works in iframe
+    try {
+        // Method 1: Try scrolling the container
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Method 2: Try scrolling the HTML element
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 3: Try scrolling the body
+        document.body.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 4: Send message to parent frame
+        window.parent.postMessage({
+            action: 'scroll',
+            top: 0
+        }, '*');
+    } catch (e) {
+        console.error('Scroll error:', e);
     }
     
     // Hide all sections first
