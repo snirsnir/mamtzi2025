@@ -389,72 +389,41 @@
         // Track navigation state
 // Track navigation state
 // Track navigation state
+// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // iOS Detection
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isInIframe = window !== window.parent;
 
-    const scrollTopForIOS = () => {
-        if (!isIOS) return;
-
-        // Force reflow
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // Trigger reflow
-        document.body.style.display = '';
-
-        // iOS specific scrolling
-        const elements = [
-            window,
-            document.documentElement,
-            document.body,
-            document.querySelector('.container'),
-            document.querySelector('.main-content')
-        ];
-
-        elements.forEach(element => {
-            if (element) {
-                try {
-                    element.scrollTo(0, 0);
-                    element.scrollTop = 0;
-                } catch (e) {}
-            }
-        });
-
-        // Additional iOS scroll attempts
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTo(0, 0);
-            document.body.scrollTo(0, 0);
+    if (isIOS) {
+        // Simple direct approach for iOS
+        const container = document.querySelector('.container');
+        if (container) {
+            // Force immediate scroll
+            container.style.scrollBehavior = 'auto';
+            container.scrollTop = 0;
             
-            const container = document.querySelector('.container');
-            const mainContent = document.querySelector('.main-content');
-            
-            if (container) container.scrollTo(0, 0);
-            if (mainContent) mainContent.scrollTo(0, 0);
-        }, 100);
-    };
-
-    const scrollToTop = () => {
-        if (isIOS) {
-            scrollTopForIOS();
-        } else {
-            // Non-iOS scrolling
-            const container = document.querySelector('.container');
-            if (container) {
+            // Then attempt smooth scroll
+            setTimeout(() => {
+                container.style.scrollBehavior = 'smooth';
                 container.scrollTop = 0;
-                container.scrollIntoView({ behavior: 'auto', block: 'start' });
-            }
+            }, 0);
         }
-    };
 
-    // Execute scroll with multiple attempts
-    scrollToTop();
-    setTimeout(scrollToTop, 50);
-    setTimeout(scrollToTop, 150);
-    
+        // Additional attempt for iOS
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    } else {
+        // For non-iOS devices
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
     // Hide all sections first
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
@@ -466,21 +435,22 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
         
-        // Add to navigation stack if it's a new section
         if (navigationStack[navigationStack.length - 1] !== sectionId) {
             navigationStack.push(sectionId);
         }
         
-        // Show/hide back button
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
 
-        // Additional scroll attempts after content change
+        // Final scroll attempt for iOS
         if (isIOS) {
-            setTimeout(scrollTopForIOS, 200);
-            setTimeout(scrollTopForIOS, 400);
-        } else {
-            setTimeout(scrollToTop, 200);
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                const container = document.querySelector('.container');
+                if (container) container.scrollTop = 0;
+            }, 100);
         }
     }
 }
