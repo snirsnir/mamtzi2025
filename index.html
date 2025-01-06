@@ -388,38 +388,55 @@
     <script>
         // Track navigation state
 // Track navigation state
+// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Try multiple methods to ensure scrolling works in iframe
-    try {
-        // Method 1: Try scrolling the container
-        const container = document.querySelector('.container');
-        if (container) {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Scroll solution for iframe and all devices
+    const scrollToTop = () => {
+        try {
+            // Check if we're in an iframe
+            const isInIframe = window !== window.parent;
+            
+            if (isInIframe) {
+                // Focus on iframe elements
+                const container = document.querySelector('.container');
+                const mainContent = document.querySelector('.main-content');
+                
+                if (container) container.scrollTop = 0;
+                if (mainContent) mainContent.scrollTop = 0;
+            } else {
+                // If not in iframe, try all possible scroll methods
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
+
+            // For iOS Safari specifically
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    const elements = [
+                        document.documentElement,
+                        document.body,
+                        document.querySelector('.container'),
+                        document.querySelector('.main-content')
+                    ];
+                    
+                    elements.forEach(element => {
+                        if (element) element.scrollTop = 0;
+                    });
+                }, 100);
+            }
+        } catch (e) {
+            console.error('Scroll error:', e);
         }
-        
-        // Method 2: Try scrolling the HTML element
-        document.documentElement.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 3: Try scrolling the body
-        document.body.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Method 4: Send message to parent frame
-        window.parent.postMessage({
-            action: 'scroll',
-            top: 0
-        }, '*');
-    } catch (e) {
-        console.error('Scroll error:', e);
-    }
+    };
+
+    // Multiple scroll attempts with timing
+    scrollToTop();
+    setTimeout(scrollToTop, 50);
+    setTimeout(scrollToTop, 150);
     
     // Hide all sections first
     const sections = document.querySelectorAll('.section');
@@ -440,6 +457,9 @@ function showSection(sectionId) {
         // Show/hide back button
         const backButton = document.querySelector('.back-button');
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
+
+        // Final scroll attempt after content change
+        setTimeout(scrollToTop, 250);
     }
 }
 
