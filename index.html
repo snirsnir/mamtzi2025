@@ -12,29 +12,22 @@
             box-sizing: border-box;
         }
 
-        html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
+        body {
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f6f8ff 0%, #e9ecff 100%);
+            direction: rtl;
+            padding: 20px;
+            color: #2d3748;
+        }
 
-body {
-    font-family: 'Fredoka', sans-serif;
-    background: linear-gradient(135deg, #f6f8ff 0%, #e9ecff 100%);
-    direction: rtl;
-    color: #2d3748;
-}
-
-.container {
-    height: 100vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    position: relative;
-    padding: 20px;
-}
-
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
 
         .counter {
             position: absolute;
@@ -59,15 +52,14 @@ body {
         }
 
         .main-content {
-    margin-top: 80px;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
+            max-width: 800px;
+            margin: 80px auto 0;
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
 
         .back-button {
             position: fixed;
@@ -396,18 +388,37 @@ body {
     <script>
         // Track navigation state
 // Track navigation state
-// Track navigation state
 let navigationStack = ['section1'];
 
 // Show/hide sections
 function showSection(sectionId) {
-    // Scroll handling for iframe
-    const mainContent = document.querySelector('.main-content');
-    if (mainContent) {
-        mainContent.parentNode.scroll({
+    // Try multiple methods to ensure scrolling works in iframe
+    try {
+        // Method 1: Try scrolling the container
+        const container = document.querySelector('.container');
+        if (container) {
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Method 2: Try scrolling the HTML element
+        document.documentElement.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
+        
+        // Method 3: Try scrolling the body
+        document.body.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Method 4: Send message to parent frame
+        window.parent.postMessage({
+            action: 'scroll',
+            top: 0
+        }, '*');
+    } catch (e) {
+        console.error('Scroll error:', e);
     }
     
     // Hide all sections first
@@ -431,6 +442,7 @@ function showSection(sectionId) {
         backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
     }
 }
+
         // Handle back navigation
         function goBack() {
             if (navigationStack.length > 1) {
