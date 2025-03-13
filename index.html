@@ -416,6 +416,30 @@
     border-color: #c7d2fe;
 }
 
+/* סגנון לכפתור הזום */
+.zoom-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    text-align: center;
+}
+
+.zoom-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .modal-content {
@@ -482,7 +506,7 @@
                 <div class="meeting-details">
                     <p>יום שני ה-17.3.2025</p>
                     <p>בין השעות 16:00 - 17:00</p>
-                </div>
+                <a href="https://edu-il.zoom.us/j/4302796923?omn=87165912523" class="zoom-button" target="_blank">לכניסה למפגש - לחצו כאן</a></div>
             </div>
 
             <div class="meeting-card">
@@ -619,45 +643,43 @@
 </div>
 
     <script>
+        // שמירה על מצב הניווט
+        // Track navigation state
+        let navigationStack = ['section1a'];
 
-
-// שמירה על מצב הניווט
-// Track navigation state
-let navigationStack = ['section1a'];
-
-// Show/hide sections
-function showSection(sectionId) {
-    // Scroll handling with polyfill support
-    const container = document.querySelector('.container');
-    if (container) {
-        container.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'start'
-        });
-    }
-    
-    // Hide all sections first
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show the selected section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-        
-        // Add to navigation stack if it's a new section
-        if (navigationStack[navigationStack.length - 1] !== sectionId) {
-            navigationStack.push(sectionId);
+        // Show/hide sections
+        function showSection(sectionId) {
+            // Scroll handling with polyfill support
+            const container = document.querySelector('.container');
+            if (container) {
+                container.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'start'
+                });
+            }
+            
+            // Hide all sections first
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Add to navigation stack if it's a new section
+                if (navigationStack[navigationStack.length - 1] !== sectionId) {
+                    navigationStack.push(sectionId);
+                }
+                
+                // Show/hide back button
+                const backButton = document.querySelector('.back-button');
+                backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
+            }
         }
-        
-        // Show/hide back button
-        const backButton = document.querySelector('.back-button');
-        backButton.style.display = navigationStack.length > 1 ? 'block' : 'none';
-    }
-}
 
         // Handle back navigation
         function goBack() {
@@ -826,25 +848,25 @@ function showSection(sectionId) {
             showSection('section1a');
         });
         const modal = document.getElementById('updateModal');
-const updateBtn = document.getElementById('update1-btn');
-const closeBtn = document.querySelector('.close-button');
+        const updateBtn = document.getElementById('update1-btn');
+        const closeBtn = document.querySelector('.close-button');
 
-// פתיחת המודל
-updateBtn.onclick = function() {
-    modal.style.display = "block";
-}
+        // פתיחת המודל
+        updateBtn.onclick = function() {
+            modal.style.display = "block";
+        }
 
-// סגירת המודל
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
+        // סגירת המודל
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
 
-// סגירת המודל בלחיצה מחוץ לתוכן
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+        // סגירת המודל בלחיצה מחוץ לתוכן
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
