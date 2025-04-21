@@ -478,6 +478,11 @@
             <span class="update-number">#עדכון 1</span>
             <span class="update-title">- לוחות זמנים למפגשי הזומים ויום השיא</span>
         </button>
+        <!-- הוספת כפתור לעדכון 2 -->
+        <button id="update2-btn" class="update-button">
+            <span class="update-number">#עדכון 2</span>
+            <span class="update-title">- פירוט רשימת הקבוצות להאקתון</span>
+        </button>
     </div>
 </div>
 
@@ -850,25 +855,78 @@
             showSection('section1a');
         });
         const modal = document.getElementById('updateModal');
-        const updateBtn = document.getElementById('update1-btn');
-        const closeBtn = document.querySelector('.close-button');
+const updateBtn = document.getElementById('update1-btn');
+const closeBtn = document.querySelector('.close-button');
 
-        // פתיחת המודל
-        updateBtn.onclick = function() {
-            modal.style.display = "block";
-        }
+// פתיחת המודל
+updateBtn.onclick = function() {
+    modal.style.display = "block";
+}
 
-        // סגירת המודל
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
+// סגירת המודל
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
 
-        // סגירת המודל בלחיצה מחוץ לתוכן
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+// סגירת המודל בלחיצה מחוץ לתוכן
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// הוספת קוד לפתיחת קובץ teams.html בכפתור עדכון 2
+// הוספת קוד לטעינת teams.html בתוך מודל
+// קוד להצגת teams.html במודל באמצעות iframe
+document.getElementById('update2-btn').onclick = function() {
+    // יצירת מודל חדש אם לא קיים
+    if (!document.getElementById('teamsModal')) {
+        const teamsModal = document.createElement('div');
+        teamsModal.id = 'teamsModal';
+        teamsModal.className = 'modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        modalContent.style.width = '90%';       // הגדלת רוחב המודל
+        modalContent.style.maxWidth = '1200px'; // רוחב מקסימלי
+        modalContent.style.height = '80vh';     // גובה גדול יותר
+        modalContent.style.padding = '20px';    // הגדלת הריפוד
+        
+        const closeButton = document.createElement('span');
+        closeButton.className = 'close-button';
+        closeButton.innerHTML = '&times;';
+        closeButton.onclick = function() {
+            teamsModal.style.display = 'none';
+        };
+        
+        // יצירת iframe לטעינת הדף המלא
+        const iframe = document.createElement('iframe');
+        iframe.src = 'teams.html';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.borderRadius = '8px';
+        
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(iframe);
+        teamsModal.appendChild(modalContent);
+        document.body.appendChild(teamsModal);
+    }
+    
+    // הצגת המודל
+    document.getElementById('teamsModal').style.display = 'block';
+    
+    // סגירת המודל בלחיצה מחוץ לתוכן
+    window.onclick = function(event) {
+        const teamsModal = document.getElementById('teamsModal');
+        if (event.target == teamsModal) {
+            teamsModal.style.display = 'none';
         }
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+};
     </script>
 </body>
 </html>
