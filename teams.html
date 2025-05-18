@@ -77,6 +77,10 @@
             position: relative;
         }
 
+        .team-card.approved {
+            border: 3px solid #10b981;
+        }
+
         .team-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
@@ -186,6 +190,13 @@
             background: linear-gradient(45deg, #059669, #047857);
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .approved-message {
+            color: #3b82f6;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 15px;
         }
 
         @media (max-width: 768px) {
@@ -317,7 +328,10 @@
                 <button class="filter-tab" data-filter="grade-6">כיתה ו'</button>
             </div>
         </div>
-
+<div style="background-color: #f0f9ff; border: 2px solid #3b82f6; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center; font-size: 1.1em; font-weight: 500;">
+    <h2 style="color: #1d4ed8; margin-bottom: 10px; font-size: 1.3em;">הודעה למורים המנחים</h2>
+    <p style="line-height: 1.5;">מורים מנחים - זה הזמן לאשר קבוצות. אישור קבוצות מתבצע עד 24 שעות מרגע שליחת הבקשה</p>
+</div>
         <div id="schoolsContainer">
             <!-- תוכן בתי הספר והקבוצות יוכנס כאן באמצעות JavaScript -->
         </div>
@@ -1250,10 +1264,179 @@
     }
 ];
 
+
+        // מאגר נתונים למצב האישור של הקבוצות
+        const teamApprovalStatus = {};
+
+        // רשימת הקבוצות המאושרות מראש (הערך שלהן יהיה 1)
+const preApprovedTeams = [
+    // רשימת כל הקבוצות מהמערך - פשוט הסר את ה-"//" מהשורות של הקבוצות שאתה רוצה לאשר
+    
+    // אור לטף
+    // "אור לטף_כיתה ד'1",
+    // "אור לטף_כיתה ו'1",
+    // "אור לטף_כיתה ה'1",
+    // "אור לטף_כיתה ד'2",
+
+    // ארלוזורוב
+    // "ארלוזורוב_ו׳1 ארלוזורוב האלופים",
+    // "ארלוזורוב_ו׳3 ארלוזורוב",
+    // "ארלוזורוב_ו׳2 ארלוזורוב",
+
+    // בית חינוך יצחק נבון
+    // "בית חינוך יצחק נבון_קבוצה א נבון",
+    // "בית חינוך יצחק נבון_קבוצה ב יצחק נבון",
+    // "בית חינוך יצחק נבון_קבוצה ג יצחק נבון",
+    // "בית חינוך יצחק נבון_קבוצה ד יצחק נבון",
+
+    // בירב
+    // "בירב_בירב",
+    // "בירב_בירב ד",
+    // "בירב_בירב ו",
+
+    // בראשית+הנדיב
+    // "בראשית+הנדיב_נפתלי",
+
+    // גוונים
+    // "גוונים_דור העתיד",
+    // "גוונים_הייטקיסטים",
+    // "גוונים_D.N.A-E",
+    // "גוונים_איינשטיין",
+
+    // דרך ע"ש רונה רמון
+    // "דרך ע\"ש רונה רמון_נבחרת דרך 1",
+    // "דרך ע\"ש רונה רמון_דרך 3 ע\"ש רונה רמון",
+
+    // הנדיב
+    // "הנדיב_האיינשטניות",
+    // "הנדיב_הגאונים מהנדיב",
+
+    // החיטה
+    // "החיטה_החיטה פותרים בעיה",
+
+    // חבד
+    // "חבד_חבד נוף הגליל",
+
+    // חופים
+    // "חופים_כיתה ה3",
+    // "חופים_כיתה ה1",
+    // "חופים_ה2 חופים",
+
+    // יסודי זרזיר
+    // "יסודי זרזיר_יסודי זרזיר",
+
+    // יסודי עמק חרוד
+    // "יסודי עמק חרוד_שמש",
+    // "יסודי עמק חרוד_ירח",
+    // "יסודי עמק חרוד_כוכבים",
+
+    // ישורון
+    // "ישורון_הניוטונים מישורון",
+    // "ישורון_הדרדסונים של הדור הבא",
+
+    // מימון
+    // "מימון_שלושת המוסקטרים",
+
+    // מימון, שובו
+    // "מימון, שובו_יכעחרכנ",
+
+    // נוף צורים
+    // "נוף צורים_בי\"ס נוף צורים 1",
+    // "נוף צורים_בי\"ס נוף צורים 2",
+
+    // נחמיה תמרי
+    // "נחמיה תמרי_המדעניות של תמרי ה1",
+    // "נחמיה תמרי_ממציאי המחר",
+    // "נחמיה תמרי_ממציאות צעירות",
+    // "נחמיה תמרי_שימי",
+    // "נחמיה תמרי_הבנות של חופית",
+    // "נחמיה תמרי_המלכות",
+    // "נחמיה תמרי_קבוצת ביוטי",
+    // "נחמיה תמרי_הנסיכות",
+
+    // ניצני השרון
+    // "ניצני השרון_נצנ\"ש קדימה 1",
+    // "ניצני השרון_נצנ\"ש קדימה 2",
+    // "ניצני השרון_נצנ\"ש קדימה 3",
+    // "ניצני השרון_ניצני השרון קדימה",
+    // "ניצני השרון_נצנ\"ש 4",
+
+    // עמק יזרעאל
+    // "עמק יזרעאל_עמק יזרעאל",
+    // "עמק יזרעאל_עמק יזרעאל 2",
+
+    // צליל
+    // "צליל_צליל מכוון",
+
+    // קדם
+    // "קדם_כיתה ה בית ספר קדם",
+    // "קדם_כיתה ה קדם",
+
+    // קמפוס יצחק נבון
+    // "קמפוס יצחק נבון_קמפוס",
+
+    // שדות
+    // "שדות_קבוצה 1 שדות",
+    // "שדות_קבוצה 2 שדות",
+    // "שדות_שדות טכנודע",
+
+    // שרת
+    // "שרת_שרת- פתרון אתגרים",
+    // "שרת_שרת - ממציאים פתרונות",
+
+    // טכנודע
+    // "טכנודע_מצוינות 1",
+    // "טכנודע_מצוינות 2",
+    // "טכנודע_מצוינות 3",
+    // "טכנודע_מצוינות 4",
+    // "טכנודע_מצוינות 5",
+
+    // תלמי רון
+    // "תלמי רון_תלמי רון 1",
+    // "תלמי רון_תלמי רון 2",
+    // "תלמי רון_תלמי רון 3",
+    // "תלמי רון_תלמי רון 4",
+    // "תלמי רון_תלמי רון 5",
+    // "תלמי רון_תלמי רון 6"
+];
+
+        // פונקציה לאתחול מצב האישור של הקבוצות
+        function initializeTeamApprovalStatus() {
+            teamsData.forEach(school => {
+                school.teams.forEach(team => {
+                    const teamId = `${school.schoolName}_${team.teamName}`;
+                    // בדיקה אם הקבוצה נמצאת ברשימת המאושרות מראש
+                    teamApprovalStatus[teamId] = preApprovedTeams.includes(teamId) ? 1 : 0;
+                });
+            });
+        }
+
+        // פונקציה לטעינת מצב האישור מ-localStorage (אם קיים)
+        function loadApprovalStatus() {
+            const savedStatus = localStorage.getItem('teamApprovalStatus');
+            if (savedStatus) {
+                const parsed = JSON.parse(savedStatus);
+                Object.keys(parsed).forEach(key => {
+                    teamApprovalStatus[key] = parsed[key];
+                });
+            }
+        }
+
         // פונקציה ליצירת קטע HTML עבור קבוצה
-       function createTeamCard(team) {
+        function createTeamCard(team) {
+            const teamId = `${team.schoolName}_${team.teamName}`;
+            const isApproved = teamApprovalStatus[teamId] === 1;
+            
+            // מגדירים את הקלאס של הכרטיס בהתאם למצב האישור
+            const cardClass = isApproved ? 'team-card approved' : 'team-card';
+            
+            // אם הקבוצה מאושרת, הצג הודעת אישור במקום כפתור האישור
+            const buttonOrMessage = isApproved ?
+                '<div class="approved-message">הקבוצה אושרה בהצלחה</div>' :
+                `<button class="confirm-button" data-team-name="${team.teamName}">בקשה לאישור קבוצה</button>`;
+            
             return `
-                <div class="team-card" data-team-name="${team.teamName}" data-school="${team.schoolName}" data-city="${team.city}">
+                <div class="${cardClass}" data-team-name="${team.teamName}" data-school="${team.schoolName}" data-city="${team.city}" data-team-id="${teamId}">
                     <div class="team-header">${team.teamName}</div>
                     <div class="team-content">
                         <div class="team-info">
@@ -1271,7 +1454,7 @@
                             <span>${team.schoolName}</span>
                             <span>${team.city}</span>
                         </div>
-                        <button class="confirm-button" data-team-name="${team.teamName}">אישור קבוצה</button>
+                        ${buttonOrMessage}
                     </div>
                 </div>
             `;
@@ -1317,6 +1500,7 @@
                     const card = this.closest('.team-card');
                     const schoolName = card.getAttribute('data-school');
                     const city = card.getAttribute('data-city');
+                    const teamId = card.getAttribute('data-team-id');
                     
                     // מצא את הקבוצה המתאימה בנתונים המקוריים על פי שם הקבוצה ושם בית הספר
                     let foundTeam = null;
@@ -1406,6 +1590,12 @@
 
         // הגדרת מאזיני אירועים
         document.addEventListener('DOMContentLoaded', function() {
+            // אתחול מצב האישור של הקבוצות
+            initializeTeamApprovalStatus();
+            
+            // טעינת מצב האישור השמור (אם קיים)
+            loadApprovalStatus();
+            
             // הצגת נתונים ראשוניים
             renderTeams(teamsData);
             
@@ -1440,5 +1630,5 @@
             });
         });
     </script>
-    </body>
-    </html>
+</body>
+</html>
