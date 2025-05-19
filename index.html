@@ -55,7 +55,7 @@
 
         .main-content {
             max-width: 800px;
-            margin: 80px auto 0;
+              margin: 20px auto 0;
             text-align: center;
             background: white;
             padding: 40px;
@@ -291,296 +291,602 @@
             }
         }
         /* הוסף את זה לתוך תגית style הקיימת */
-.updates-section {
-    margin-bottom: 30px;
-    text-align: right;
-}
+        .updates-section {
+            margin-bottom: 30px;
+            text-align: right;
+        }
 
-.updates-container {
-    background: #ffffff;
-    padding: 20px 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    margin-bottom: 40px;
-}
-.updates-container h2 {
-    color: #1a365d;
-    font-size: 2em;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-.update-button {
-    background: none;
-    border: none;
-    color: #2563eb;
-    font-size: 1.1em;
-    cursor: pointer;
-    padding: 5px 0;
+        .updates-container {
+            background: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+        }
+        .updates-container h2 {
+            color: #1a365d;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .update-button {
+            background: none;
+            border: none;
+            color: #2563eb;
+            font-size: 1.1em;
+            cursor: pointer;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .update-button:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .update-number {
+            font-weight: 600;
+            color: #1d4ed8;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto; /* מאפשר גלילה במודל */
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* מוסיף מרווח בתחתית המודל כשיש תוכן ארוך */
+        .meetings-container {
+            margin-bottom: 20px;
+        }
+        .close-button {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #475569;
+        }
+
+        .modal-content h3 {
+            color: #1a365d;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .meetings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .meeting-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .meeting-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .meeting-card h4 {
+            color: #1a365d;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .meeting-details {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .meeting-card.special {
+            background-color: #eef2ff;
+            border-color: #c7d2fe;
+        }
+
+        /* סגנון לכפתור הזום */
+        .zoom-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 500;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            text-align: center;
+        }
+
+        .zoom-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 20px;
+                padding: 20px;
+                width: calc(100% - 40px);
+            }
+            
+            .update-button {
+                font-size: 1em;
+            }
+            
+            .meeting-card {
+                padding: 15px;
+            }
+        }
+        /* סגנון חדש עבור הלוגואים */
+.logos-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    transition: color 0.3s ease;
-}
-
-.update-button:hover {
-    background: #f1f5f9;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.update-number {
-    font-weight: 600;
-    color: #1d4ed8;
-}
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow-y: auto; /* מאפשר גלילה במודל */
-}
-
-.modal-content {
-    position: relative;
-    background-color: white;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 800px;
-    width: 90%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* מוסיף מרווח בתחתית המודל כשיש תוכן ארוך */
-.meetings-container {
     margin-bottom: 20px;
-}
-.close-button {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #64748b;
-    transition: color 0.3s ease;
+    padding: 0 20px;
 }
 
-.close-button:hover {
-    color: #475569;
+.logo {
+    height: 80px;
+    object-fit: contain;
 }
 
-.modal-content h3 {
-    color: #1a365d;
-    font-size: 1.8em;
-    margin-bottom: 25px;
-    text-align: right;
+.logo-left {
+    margin-left: 20px;
 }
 
-.meetings-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.logo-right {
+    margin-right: 20px;
 }
 
-.meeting-card {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 20px;
-    transition: transform 0.3s ease;
-}
-
-.meeting-card:hover {
-    transform: translateY(-2px);
-}
-
-.meeting-card h4 {
-    color: #1a365d;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.meeting-details {
-    color: #475569;
-    line-height: 1.6;
-}
-
-.meeting-card.special {
-    background-color: #eef2ff;
-    border-color: #c7d2fe;
-}
-
-/* סגנון לכפתור הזום */
-.zoom-button {
-    display: inline-block;
-    background: linear-gradient(45deg, #2563eb, #1d4ed8);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 500;
-    font-size: 1.1em;
-    border-radius: 8px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
-    text-align: center;
-}
-
-.zoom-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
-}
-
-/* Responsive Adjustments */
+/* התאמה למסכים קטנים */
 @media (max-width: 768px) {
-    .modal-content {
-        margin: 20px;
-        padding: 20px;
-        width: calc(100% - 40px);
+    .logos-container {
+        flex-direction: column;
+        gap: 15px;
     }
     
-    .update-button {
-        font-size: 1em;
-    }
-    
-    .meeting-card {
-        padding: 15px;
+    .logo {
+        height: 60px;
     }
 }
-
     </style>
 </head>
 <body>
     <button onclick="goBack()" class="back-button">חזור</button>
     
 <div class="container">
-    <div class="counter">
-        <div>כמה מקומות נשארו?</div>
-        <div class="counter-number">טוען</div>
-    </div>
+<div class="logos-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Lockheed_Martin_logo.svg/1024px-Lockheed_Martin_logo.svg.png" alt="לוקהיד מרטין" class="logo logo-right">
+    <img src="https://media.getmood.io/warehouse/dynamic/217495.png" alt="הטכנודע" class="logo logo-left">
+</div>
 
     <div class="main-content">
         <!-- Section 1: Welcome -->
-<!-- Section 1a: Welcome Part 1 -->
-<div class="updates-section">
-    <div class="updates-container">
-        <h2>מרכז העדכונים</h2>
-        <button id="update1-btn" class="update-button">
-            <span class="update-number">#עדכון 1</span>
-            <span class="update-title">- לוחות זמנים למפגשי הזומים ויום השיא</span>
-        </button>
-        <!-- הוספת כפתור לעדכון 2 -->
-        <button id="update2-btn" class="update-button">
-            <span class="update-number">#עדכון 2</span>
-            <span class="update-title">- פירוט רשימת הקבוצות להאקתון</span>
-        </button>
-    </div>
-</div>
+        <!-- Section 1a: Welcome Part 1 -->
+        
+        <!-- מרכז מידע חשוב מעודכן -->
+        <div class="updates-section">
+            <div class="updates-container">
+                <h2>מידע חשוב</h2>
+                
+                <!-- כפתור 1: לוחות זמנים למפגשי הזומים -->
+                <button id="zoom-schedule-btn" class="update-button" style="background: linear-gradient(45deg, #2563eb, #1d4ed8); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: right;">
+                    <span style="font-weight: 600; margin-right: 10px;">לוחות זמנים למפגשי הזומים</span>
+                    <span style="font-size: 1.2em; margin-left: 10px;">📅</span>
+                </button>
+                
+                <!-- כפתור 2: רשימת הקבוצות -->
+                <button id="teams-list-btn" class="update-button" style="background: linear-gradient(45deg, #10b981, #059669); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: right;">
+                    <span style="font-weight: 600; margin-right: 10px;">רשימת הקבוצות</span>
+                    <span style="font-size: 1.2em; margin-left: 10px;">👥</span>
+                </button>
+                
+                <!-- כפתור 3: לו"ז יום השיא -->
+                <button id="summit-schedule-btn" class="update-button" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: right;">
+                    <span style="font-weight: 600; margin-right: 10px;">לו"ז יום השיא</span>
+                    <span style="font-size: 1.2em; margin-left: 10px;">🏆</span>
+                </button>
+                
+                <!-- כפתור 4: מידע חשוב לקראת היום הגדול -->
+                <button id="important-info-btn" class="update-button" style="background: linear-gradient(45deg, #e11d48, #dc2626); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: right;">
+                    <span style="font-weight: 600; margin-right: 10px;">מידע חשוב לקראת היום הגדול</span>
+                    <span style="font-size: 1.2em; margin-left: 10px;">ℹ️</span>
+                </button>
+            </div>
+        </div>
 
-<!-- Modal -->
-<!-- Modal -->
-<div id="updateModal" class="modal">
+        <!-- Modal 1: לוחות זמנים למפגשי הזומים -->
+        <div id="zoomScheduleModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>לוחות זמנים למפגשים</h3>
+                
+                <div class="modal-intro" style="margin-bottom: 25px; padding: 20px; background: #eef2ff; border-radius: 8px; text-align: right;">
+                    <p style="margin-bottom: 15px; font-weight: 600; color: #1e40af;">מידע חשוב למשתתפים:</p>
+                    
+                    <div style="color: #1e40af; line-height: 1.8;">
+                        <p style="margin-bottom: 10px;">♦ השתתפות במפגשי הזום הינה חלק בלתי נפרד מתהליך ההאקתון ומהווה תנאי להשתתפות ביום השיא.</p>
+                        
+                        <p style="margin-bottom: 10px;">♦ בסיום כל מפגש זום תיפתח פעילות דיגיטלית אינטראקטיבית להעשרה והעמקת הידע.</p>
+                        
+                        <p style="margin-bottom: 10px;">♦ קישור למפגש הזום יישלח למייל שהוזן בטופס ההרשמה ויתפרסם כאן כשבוע לפני כל מפגש.</p>
+                    </div>
+                </div>
+
+                <div class="meetings-container">
+                    <div class="meeting-card">
+                        <h4>מפגש זום 1 - מפגש פתיחה - היכרות, הנחיות וחשיפת האתגר</h4>
+                        <div class="meeting-details">
+                            <p>יום שני ה-17.3.2025</p>
+                            <p>בין השעות 16:00 - 17:00</p>
+                            <a href="https://docs.google.com/presentation/d/1Vww5ZzB-L5HZsaWb_WR4s10vZQLUt2Q1ym9B2Cx681c/edit?usp=sharing" class="zoom-button" target="_blank">לכניסה למצגת עם כל הקישורים החשובים - לחצו כאן</a>
+                            <a href="https://drive.google.com/file/d/133yYkFPJBixKhOWSblW_9zO7Affn3PMl/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #e11d48, #dc2626); margin-top: 10px;" target="_blank">לסיכום וידיאו של המפגש - לחצו כאן</a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <h4>מפגש זום 2 - מפגש בנושא פרסום מוצר</h4>
+                        <div class="meeting-details">
+                            <p>יום רביעי ה-23.04.2025</p>
+                            <p>בין השעות 16:00 - 17:00</p>
+                            <a href="https://drive.google.com/file/d/1HJ44pXYFPZEBLCizJYGiXtLECT0UhfAg/view?usp=sharing" class="zoom-button" target="_blank">להקלטת הזום חלק 1 : הרצאתה של ד"ר עירית ניצן</a>
+                            <a href="https://drive.google.com/file/d/1DQz-d1b8huVIOhvakQYydv3nMgU_-hKv/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #10b981, #059669); margin-top: 10px;" target="_blank">למצגת של ד"ר עירית ניצן</a>
+                            <a href="https://drive.google.com/file/d/1rcuvMwVF14bWpbmVgr3OHb7m_LlX4dav/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #e11d48, #dc2626); margin-top: 10px;" target="_blank">להקלטת זום חלק 2: הסבר על פלטפורמות לשיווק</a>
+                            <a href="https://docs.google.com/presentation/d/12EIlPhFKzQx6HxNkJ7RfAzJKwSZg0L3wtN4Xhd15TYI/edit?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed); margin-top: 10px;" target="_blank">למצגת המלווה של הסבר פלטפורמות השיווק ובנק הפרסומות</a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <h4>מפגש זום 3 - מפגש בנושא שלב התיכון ופיתוח מוצר</h4>
+                        <div class="meeting-details">
+                            <p>יום רביעי ה-14.05.2025</p>
+                            <p>בין השעות 16:00 - 17:00</p>
+                            <a href="https://drive.google.com/file/d/15pe4vCwu4JpH_6Qt5JriNYlAfTm5fh46/view?usp=sharing" class="zoom-button" target="_blank">להקלטת הזום המלאה</a>
+                            <a href="https://drive.google.com/file/d/1zYkeavD7pKDXkeSi_lxmnDteeCQc8gr3/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #10b981, #059669); margin-top: 10px;" target="_blank">למצגת של קרן אולאברי</a>
+                            <a href="https://docs.google.com/presentation/d/1QRpeIJQci2PLPrArahCHfwK7gOagSiFoh87BSxrSHZM/edit?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed); margin-top: 10px;" target="_blank">למצגת המלווה של הזום ובנק הפרזנטציות</a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <h4>מפגש זום 4 - לקראת יום השיא - חידודים, שאלות ועוד..</h4>
+                        <div class="meeting-details">
+                            <p>יום שני ה-26.05.2025</p>
+                            <p>בין השעות 16:00 - 17:00</p>
+                        </div>
+                    </div>
+
+                    <div class="meeting-card special">
+                        <h4>יום השיא</h4>
+                        <div class="meeting-details">
+                            <p>יום חמישי ה-5.06.2025</p>
+                            <p>משעות הבוקר</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: רשימת הקבוצות -->
+        <div id="teamsListModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>רשימת הקבוצות להאקתון</h3>
+                
+                <!-- כאן ייכנס תוכן רשימת הקבוצות מתוך teams.html -->
+                <iframe src="teams.html" style="width: 100%; height: 70vh; border: none; border-radius: 8px;"></iframe>
+            </div>
+        </div>
+
+        <!-- Modal 3: לו"ז יום השיא -->
+        <div id="summitScheduleModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>לו"ז יום השיא - 5.6.2025</h3>
+                
+                <!-- מבוא ליום השיא -->
+                <div class="modal-intro" style="margin-bottom: 25px; padding: 20px; background: #eef2ff; border-radius: 8px; text-align: right;">
+                    <p style="margin-bottom: 15px; font-weight: 600; color: #1e40af;">ברוכים הבאים ליום השיא של האקתון הממציא הצעיר 2025!</p>
+                    
+                    <div style="color: #1e40af; line-height: 1.8;">
+                        <p style="margin-bottom: 10px;">יום השיא הוא שיאו של תהליך למידה משמעותי שעברתם בחודשים האחרונים. הגעתם מוכנים ומצוידים בידע, ועכשיו הגיע הזמן להפוך את הרעיונות שלכם למציאות!</p>
+                    </div>
+                </div>
+
+                <!-- לוח זמנים ליום השיא -->
+<div class="meetings-container" id="printable-schedule">
+    <h4 style="color: #1a365d; font-size: 1.4em; margin-bottom: 20px; text-align: right;">לוח זמנים מפורט - יום חמישי, 5.6.2025</h4>
+    
+    <div class="meeting-card">
+        <h4>🚶‍♂️ 09:00 | יש להגיע לטכנודע עד השעה 09:00</h4>
+        <div class="meeting-details">
+            <p>התייצבות בטכנודע, הגעה מסודרת של כל הקבוצות</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>📋 09:30 | התכנסות וקבלת משימת ההאקתון</h4>
+        <div class="meeting-details">
+            <p>חשיפת האתגר היומי והסבר מפורט על המשימה</p>
+            <p>וקבלת לו"ז יומי</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>⚙️ 10:00 - 11:30 | סבב ראשון - האקתון</h4>
+        <div class="meeting-details">
+            <p>הקבוצות יתחילו במלאכה ויעבדו על בניית אב-טיפוס / שיווק המוצר / ספר פרויקט (המצאפדיה)</p>
+            <p>מנטורים יעברו בין הקבוצות לסיוע והכוונה</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>☕ 11:30 - 12:00 | הפסקה</h4>
+        <div class="meeting-details">
+            <p>זמן התרעננות והפסקת אוכל קלה</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🔧 12:00 - 13:30 | סבב שני - האקתון</h4>
+        <div class="meeting-details">
+            <p>הקבוצות ימשיכו במלאכה ויעבדו על בניית אב-טיפוס / שיווק המוצר / ספר פרויקט (המצאפדיה)</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🍕 13:30 - 14:00 | הפסקה</h4>
+        <div class="meeting-details">
+            <p>זמן מנוחה וארוחת צהריים (הפיצות עלינו)</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🛠️ 14:00 - 15:30 | סבב שלישי - האקתון</h4>
+        <div class="meeting-details">
+            <p>הקבוצות ימשיכו לעבוד ובסיום יהיה להם אב-טיפוס, כלי שיווקי להמצאה וספר פרויקט</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🧘‍♂️ 15:30 - 16:00 | הפסקה</h4>
+        <div class="meeting-details">
+            <p>התארגנות אחרונה לקראת השיפוט</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🏆 16:00 - 18:00 | שיפוט</h4>
+        <div class="meeting-details">
+            <p>כל קבוצה תציג את הפתרון שפיתחה בפני צוות השופטים</p>
+            <p>סבב שאלות והתייחסויות מהשופטים</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card">
+        <h4>🎪 18:00 - 19:00 | העברת האבטיפוסים לתערוכה</h4>
+        <div class="meeting-details">
+            <p>הכנת עמדות התצוגה והצבת הפרויקטים</p>
+        </div>
+    </div>
+    
+    <!-- קו הפרדה עם הודעה על הגעת ההורים -->
+    <div class="parents-separator" style="border-top: 2px dashed #4f46e5; margin: 15px 0; padding-top: 10px; text-align: center;">
+        <span style="background-color: #eff6ff; padding: 5px 15px; border-radius: 20px; color: #1e40af; font-weight: bold;">👨‍👩‍👧‍👦 ההורים מגיעים 👨‍👩‍👧‍👦</span>
+    </div>
+    
+    <div class="meeting-card special">
+        <h4>🔍 19:00 - 20:00 | תערוכת ההמצאות הגדולה</h4>
+        <div class="meeting-details">
+            <p>הצגת הפרויקטים והסבר להורים ולמבקרים</p>
+        </div>
+    </div>
+    
+    <div class="meeting-card special">
+        <h4>🎖️ 20:00 - 21:00 | טקס הכרזת הזוכים</h4>
+        <div class="meeting-details">
+            <p>הכרזה על הפרויקטים הזוכים</p>
+            <p>חלוקת פרסים וצילום קבוצתי</p>
+        </div>
+    </div>
+
+<!-- כפתור הדפסה - לא יופיע בהדפסה -->
+<div class="print-button-container" style="text-align: center; margin-top: 30px;">
+    <button onclick="printSchedule();" style="background: linear-gradient(45deg, #3b82f6, #2563eb); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Fredoka', sans-serif; font-size: 1.1em; display: flex; align-items: center; gap: 8px; margin: 0 auto;">
+        <span style="font-size: 1.2em;">🖨️</span>
+        <span>הדפיסו את הלו"ז</span>
+    </button>
+</div>
+</div>
+            </div>
+        </div>
+
+<!-- Modal 4: מידע חשוב לקראת היום הגדול -->
+<div id="importantInfoModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
-        <h3>לוחות זמנים למפגשים</h3>
+        <h3>מידע חשוב לקראת היום הגדול</h3>
         
-        <div class="modal-intro" style="margin-bottom: 25px; padding: 20px; background: #eef2ff; border-radius: 8px; text-align: right;">
-            <p style="margin-bottom: 15px; font-weight: 600; color: #1e40af;">מידע חשוב למשתתפים:</p>
+        <!-- טמפלייט למידע חשוב -->
+        <div class="important-info-container" style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- דגשים חשובים - חדש! -->
+            <div class="info-section" style="background: #fff0f6; padding: 20px; border-radius: 10px; border-right: 5px solid #e11d48;">
+                <h4 style="color: #be123c; font-size: 1.3em; margin-bottom: 15px;">דגשים חשובים</h4>
+                <ul style="list-style-type: none; padding: 0;">
+                                        <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        <strong>נשאר עוד מפגש זום אחד, לא לשכוח להיות נוכחים</strong>
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        <strong>יש להגיע בזמן!</strong>
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        אין צורך להביא איתכם חומרי לימוד, אנחנו עושים הכל בטכנודע!
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        כל קבוצה תחווה 3 מתחמים: מתחם יצירת האבטיפוס, מתחם השיווק הדיגיטלי ומתחם ספר הפרויקט (ההמצאפדיה)
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        מומלץ לעבור על התוכן שהעברנו במפגשי הזום (ניתן למצוא באתר הטכנודע)
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #e11d48;">❗</span>
+                        לבוא עם הרבה מרץ ומוטיבציה!
+                    </li>
+                </ul>
+            </div>
             
-            <div style="color: #1e40af; line-height: 1.8;">
-                <p style="margin-bottom: 10px;">♦ השתתפות במפגשי הזום הינה חלק בלתי נפרד מתהליך ההאקתון ומהווה תנאי להשתתפות ביום השיא.</p>
-                
-                <p style="margin-bottom: 10px;">♦ בסיום כל מפגש זום תיפתח פעילות דיגיטלית אינטראקטיבית להעשרה והעמקת הידע.</p>
-                
-                <p style="margin-bottom: 10px;">♦ קישור למפגש הזום יישלח למייל שהוזן בטופס ההרשמה ויתפרסם כאן כשבוע לפני כל מפגש.</p>
+            <div class="info-section" style="background: #f0f9ff; padding: 20px; border-radius: 10px; border-right: 5px solid #0ea5e9;">
+                <h4 style="color: #0369a1; font-size: 1.3em; margin-bottom: 15px;">מה להביא ליום השיא?</h4>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #0ea5e9;">✓</span>
+                        בקבוק מים אישי
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #0ea5e9;">✓</span>
+                        2 ארוחות - ארוחת בוקר וארוחה קלה לאחר הצהריים
+                    </li>
+                    <li style="padding: 8px 30px 8px 0; position: relative;">
+                        <span style="position: absolute; right: 0; color: #0ea5e9;">✓</span>
+                        חולצת קבוצה אחידה (לא חובה)
+                    </li>
+                </ul>
             </div>
-        </div>
+            
+            <div class="info-section" style="background: #ecfdf5; padding: 20px; border-radius: 10px; border-right: 5px solid #10b981;">
+                <h4 style="color: #047857; font-size: 1.3em; margin-bottom: 15px;">הגעה וחניה</h4>
+                <p style="margin-bottom: 10px; line-height: 1.6;">
+                    <strong>ההגעה לטכנודע הינה עצמאית / באחריות בית הספר</strong>
+                </p>
+                <p style="margin-bottom: 10px; line-height: 1.6;">
+                    <strong>כתובת:</strong> טכנודע חדרה, רחוב הרב ניסים 2 חדרה
+                </p>
+                <p style="margin-bottom: 10px; line-height: 1.6;">
+                    <strong>קישור ל-WAZE:</strong> <a href="https://ul.waze.com/ul?place=ChIJb4oxDeESHRURIc6qjYU3Fm8&ll=32.43856290%2C34.88860240&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" style="color: #047857; text-decoration: underline;">לחץ כאן לניווט</a>
+                </p>
+            </div>
+            
+            <div class="info-section" style="background: #eff6ff; padding: 20px; border-radius: 10px; border-right: 5px solid #3b82f6;">
+                <h4 style="color: #1d4ed8; font-size: 1.3em; margin-bottom: 15px;">קריטריונים לשיפוט ההמצאות</h4>
 
-        <div class="meetings-container">
-<div class="meeting-card">
-    <h4>מפגש זום 1 - מפגש פתיחה - היכרות, הנחיות וחשיפת האתגר</h4>
-    <div class="meeting-details">
-        <p>יום שני ה-17.3.2025</p>
-        <p>בין השעות 16:00 - 17:00</p>
-        <a href="https://docs.google.com/presentation/d/1Vww5ZzB-L5HZsaWb_WR4s10vZQLUt2Q1ym9B2Cx681c/edit?usp=sharing" class="zoom-button" target="_blank">לכניסה למצגת עם כל הקישורים החשובים - לחצו כאן</a>
-        <a href="https://drive.google.com/file/d/133yYkFPJBixKhOWSblW_9zO7Affn3PMl/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #e11d48, #dc2626); margin-top: 10px;" target="_blank">לסיכום וידיאו של המפגש - לחצו כאן</a>
-    </div>
-</div>
-
-<div class="meeting-card">
-    <h4>מפגש זום 2 - מפגש בנושא פרסום מוצר</h4>
-    <div class="meeting-details">
-        <p>יום רביעי ה-23.04.2025</p>
-        <p>בין השעות 16:00 - 17:00</p>
-        <a href="https://drive.google.com/file/d/1HJ44pXYFPZEBLCizJYGiXtLECT0UhfAg/view?usp=sharing" class="zoom-button" target="_blank">להקלטת הזום חלק 1 : הרצאתה של ד"ר עירית ניצן</a>
-        <a href="https://drive.google.com/file/d/1DQz-d1b8huVIOhvakQYydv3nMgU_-hKv/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #10b981, #059669); margin-top: 10px;" target="_blank">למצגת של ד"ר עירית ניצן</a>
-        <a href="https://drive.google.com/file/d/1rcuvMwVF14bWpbmVgr3OHb7m_LlX4dav/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #e11d48, #dc2626); margin-top: 10px;" target="_blank">להקלטת זום חלק 2: הסבר על פלטפורמות לשיווק</a>
-        <a href="https://docs.google.com/presentation/d/12EIlPhFKzQx6HxNkJ7RfAzJKwSZg0L3wtN4Xhd15TYI/edit?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed); margin-top: 10px;" target="_blank">למצגת המלווה של הסבר פלטפורמות השיווק ובנק הפרסומות</a>
-    </div>
-</div>
-
-<div class="meeting-card">
-    <h4>מפגש זום 3 - ממפגש בנושא שלב התיכון ופיתוח מוצר</h4>
-    <div class="meeting-details">
-        <p>יום רביעי ה-14.05.2025</p>
-        <p>בין השעות 16:00 - 17:00</p>
-        <a href="https://drive.google.com/file/d/15pe4vCwu4JpH_6Qt5JriNYlAfTm5fh46/view?usp=sharing" class="zoom-button" target="_blank">להקלטת הזום המלאה</a>
-        <a href="https://drive.google.com/file/d/1zYkeavD7pKDXkeSi_lxmnDteeCQc8gr3/view?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #10b981, #059669); margin-top: 10px;" target="_blank">למצגת של קרן אולאברי</a>
-        <a href="https://docs.google.com/presentation/d/1QRpeIJQci2PLPrArahCHfwK7gOagSiFoh87BSxrSHZM/edit?usp=sharing" class="zoom-button" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed); margin-top: 10px;" target="_blank">למצגת המלווה של הזום ובנק הפרזנטציות</a>
-    </div>
-</div>
-
-            <div class="meeting-card">
-                <h4>מפגש זום 4 - לקראת יום השיא - חידודים, שאלות ועוד..</h4>
-                <div class="meeting-details">
-                    <p>יום שני ה-26.05.2025</p>
-                    <p>בין השעות 16:00 - 17:00</p>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="padding: 15px 30px 15px 0; position: relative; margin-bottom: 10px; background-color: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                        <span style="position: absolute; right: 10px; color: #3b82f6; font-size: 1.2em;">✨</span>
+                        <strong style="font-size: 1.1em; color: #1e40af;">אב-טיפוס: חדשנות ויצירתיות (30%)</strong>
+                        <p style="margin: 5px 0 0 0; padding-right: 5px;">איכות אב-הטיפוס, מקוריות הרעיון, חדשנותו, יצירתיות בפתרון הבעיה והיכולת לחשוב מחוץ לקופסא. נבחן גם את ההתאמה לאתגר ואת הפוטנציאל ליישום בעולם האמיתי.</p>
+                    </li>
+                    <li style="padding: 15px 30px 15px 0; position: relative; margin-bottom: 10px; background-color: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                        <span style="position: absolute; right: 10px; color: #3b82f6; font-size: 1.2em;">📘</span>
+                        <strong style="font-size: 1.1em; color: #1e40af;">ספר הפרויקט - המצאפדיה (25%)</strong>
+                        <p style="margin: 5px 0 0 0; padding-right: 5px;">איכות התיעוד והמידע בספר הפרויקט, תיאור ברור של תהליך הפיתוח, הסבר מפורט על אופן פעולת ההמצאה, הצגת היתרונות והחדשנות, ותיעוד החשיבה והפיתוח של הקבוצה.</p>
+                    </li>
+                    <li style="padding: 15px 30px 15px 0; position: relative; margin-bottom: 10px; background-color: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                        <span style="position: absolute; right: 10px; color: #3b82f6; font-size: 1.2em;">🎯</span>
+                        <strong style="font-size: 1.1em; color: #1e40af;">שיווק ופרסום ההמצאה (25%)</strong>
+                        <p style="margin: 5px 0 0 0; padding-right: 5px;">איכות חומרי השיווק והפרסום, יצירתיות בהצגת ההמצאה לקהל היעד, בהירות המסר השיווקי, אסטרטגיית שיווק מותאמת למוצר, ויכולת לשכנע בערך ובייחודיות של ההמצאה.</p>
+                    </li>
+                    <li style="padding: 15px 30px 15px 0; position: relative; margin-bottom: 10px; background-color: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                        <span style="position: absolute; right: 10px; color: #3b82f6; font-size: 1.2em;">👥</span>
+                        <strong style="font-size: 1.1em; color: #1e40af;">עבודת צוות (10%)</strong>
+                        <p style="margin: 5px 0 0 0; padding-right: 5px;">שיתוף פעולה בין חברי הקבוצה, חלוקת תפקידים יעילה, תקשורת טובה, התמודדות מוצלחת עם אתגרים, ומעורבות פעילה של כל חברי הקבוצה בתהליך הפיתוח.</p>
+                    </li>
+                    <li style="padding: 15px 30px 15px 0; position: relative; background-color: rgba(59, 130, 246, 0.1); border-radius: 8px;">
+                        <span style="position: absolute; right: 10px; color: #3b82f6; font-size: 1.2em;">🎤</span>
+                        <strong style="font-size: 1.1em; color: #1e40af;">הצגה ופרזנטציה (10%)</strong>
+                        <p style="margin: 5px 0 0 0; padding-right: 5px;">בהירות ההצגה בפני השופטים, יכולת הסברה מעולה, ביטחון בהצגת המוצר, מענה טוב לשאלות השופטים, ושימוש יעיל בזמן הקצוב.</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info-section" style="background: #fef2f2; padding: 20px; border-radius: 10px; border-right: 5px solid #ef4444;">
+                <h4 style="color: #b91c1c; font-size: 1.3em; margin-bottom: 15px;">שאלות נפוצות</h4>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                        <p style="font-weight: 600; margin-bottom: 5px;">האם יש ארוחת צהריים מסודרת?</p>
+                        <p>כן, תוגש ארוחת צהריים לכל המשתתפים. אם יש צרכים תזונתיים מיוחדים, אנא עדכנו אותנו מראש.</p>
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; margin-bottom: 5px;">האם אפשר להביא חומרים וציוד מהבית?</p>
+                        <p>לא, כל החומרים והציוד יסופקו על ידי צוות ההאקתון. זאת כדי לשמור על הוגנות בין כל הקבוצות.</p>
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; margin-bottom: 5px;">האם הורים יכולים להגיע ליום השיא?</p>
+                        <p>הורים מוזמנים להגיע לטקס הסיום וההכרזה על הזוכים בלבד, החל מהשעה 19:00.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="meeting-card special">
-                <h4>יום השיא</h4>
-                <div class="meeting-details">
-                    <p>יום חמישי ה-5.06.2025</p>
-                    <p>משעות הבוקר</p>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-<div id="section1a" class="section active">
-    <h1>האקתון הממציא.ה הצעיר.ה 2025 ע"ש סרן ירון ויונטה ז"ל</h1>
-    
-    <div class="description">
-        <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
-        <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
-        <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
-    </div>
 
-    <button class="button" onclick="showSection('section1b')">הבא</button>
-</div>
+        <div id="section1a" class="section active">
+            <h1>האקתון הממציא.ה הצעיר.ה 2025 ע"ש סרן ירון ויונטה ז"ל</h1>
+            
+            <div class="description">
+                <p>ברוכים הבאים להאקתון הממציא.ה הצעיר.ה לשנת 2025!</p>
+                <p>לאחר 26 שנות פעילות מוצלחת של תחרות "הממציא הצעיר", אנו שמחים להציג מתכונת מחודשת ומעמיקה, המבוססת על ניסיון רב שנים ומחשבה מעמיקה על חוויית המשתתפים.</p>
+                <p>השנה, שמנו דגש על חקר, העמקה, ותכנון אסטרטגי כדי להוביל את המשתתפים בתהליך מובנה של המצאה וחדשנות.</p>
+            </div>
 
-<!-- Section 1b: Welcome Part 2 -->
-<div id="section1b" class="section">
-    <h1>הקונספט החדש</h1>
-    
-    <div class="description">
-        <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
-        <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
-        <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
-    </div>
+            <button class="button" onclick="showSection('section1b')">הבא</button>
+        </div>
 
-    <button class="button" onclick="showSection('section2')">הבא</button>
-</div>
+        <!-- Section 1b: Welcome Part 2 -->
+        <div id="section1b" class="section">
+            <h1>הקונספט החדש</h1>
+            
+            <div class="description">
+                <p>במקום פיתוח עצמאי בבית, ההאקתון החדשני שלנו יאפשר לכם לחוות תהליך מלא – משלב הרעיון, דרך זיהוי ופיתוח פתרון לבעיה, ועד לבניית תוכנית עסקית ושיווקית.</p>
+                <p>הפעילות כוללת למידה מעשית, עבודת צוות והנחיה מקצועית שיסייעו לכם לחשוב כמו ממציאים אמיתיים ולהפוך רעיון למציאות.</p>
+                <p>מעוניינים לגלות עוד על התהליך החדש? לחצו על הבא!</p>
+            </div>
+
+            <button class="button" onclick="showSection('section2')">הבא</button>
+        </div>
 
         <!-- Section 2: Age Groups -->
         <div id="section2" class="section">
@@ -706,30 +1012,7 @@
         }
 
         // Counter functionality
-        const COUNTER_API = 'https://api.allorigins.win/get?url=https://script.google.com/macros/s/AKfycbyCNJP3zm5jejUu_7ADusof_uONIveMpL3bGVEnAxZlT1xQ0ywfBGqzsPwDEfeTWAgG7w/exec';
 
-        async function updateCounter() {
-            try {
-                const response = await fetch(COUNTER_API);
-                const data = await response.json();
-                const contents = JSON.parse(data.contents);
-                
-                if (contents.remainingSpots !== undefined) {
-                    document.querySelector('.counter-number').textContent = contents.remainingSpots;
-                    
-                    if (contents.remainingSpots <= 0) {
-                        const registerButtons = document.querySelectorAll('button[onclick*="registration"]');
-                        registerButtons.forEach(button => {
-                            button.disabled = true;
-                            button.textContent = 'ההרשמה הסתיימה';
-                            button.style.backgroundColor = '#ccc';
-                        });
-                    }
-                }
-            } catch (error) {
-                console.error('Error updating counter:', error);
-            }
-        }
 
         // Registration form handling
         function showRegistrationForm() {
@@ -837,7 +1120,6 @@
                     mode: 'no-cors'
                 });
 
-                setTimeout(updateCounter, 2000);
 
                 document.querySelector('.registration-form').innerHTML = `
                     <div class="success-message fade-in" style="text-align: center; padding: 40px;">
@@ -851,41 +1133,30 @@
             }
         }
 
-        // Initialize everything when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize counter updates
-            updateCounter();
-            // Set interval for counter updates (every 30 seconds)
-            setInterval(updateCounter, 30000);
-            
-            // Show initial section
-            showSection('section1a');
-        });
-        const modal = document.getElementById('updateModal');
-const updateBtn = document.getElementById('update1-btn');
-const closeBtn = document.querySelector('.close-button');
+        // קוד JavaScript להפעלת המודלים החדשים
+// מחליף את הקוד הקיים בחלק ה-JavaScript
 
-// פתיחת המודל
-updateBtn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// סגירת המודל
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-// סגירת המודל בלחיצה מחוץ לתוכן
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+document.addEventListener('DOMContentLoaded', () => {
+    // שמירת הפניות לכפתורים ומודלים
+    const zoomScheduleBtn = document.getElementById('zoom-schedule-btn');
+    const teamsListBtn = document.getElementById('teams-list-btn');
+    const summitScheduleBtn = document.getElementById('summit-schedule-btn');
+    const importantInfoBtn = document.getElementById('important-info-btn');
+    
+    const zoomScheduleModal = document.getElementById('zoomScheduleModal');
+    const summitScheduleModal = document.getElementById('summitScheduleModal');
+    const importantInfoModal = document.getElementById('importantInfoModal');
+    
+    const closeButtons = document.querySelectorAll('.close-button');
+    
+    // פתיחת המודלים בלחיצה על הכפתורים
+    zoomScheduleBtn.onclick = function() {
+        zoomScheduleModal.style.display = "block";
     }
-}
-
-// הוספת קוד לפתיחת קובץ teams.html בכפתור עדכון 2
-// הוספת קוד לטעינת teams.html בתוך מודל
-// קוד להצגת teams.html במודל באמצעות iframe
-document.getElementById('update2-btn').onclick = function() {
+    
+    // טיפול מיוחד לכפתור רשימת הקבוצות - כמו בקוד הישן
+// טיפול מיוחד לכפתור רשימת הקבוצות
+teamsListBtn.onclick = function() {
     // יצירת מודל חדש אם לא קיים
     if (!document.getElementById('teamsModal')) {
         const teamsModal = document.createElement('div');
@@ -894,10 +1165,12 @@ document.getElementById('update2-btn').onclick = function() {
         
         const modalContent = document.createElement('div');
         modalContent.className = 'modal-content';
-        modalContent.style.width = '90%';       // הגדלת רוחב המודל
-        modalContent.style.maxWidth = '1200px'; // רוחב מקסימלי
-        modalContent.style.height = '80vh';     // גובה גדול יותר
-        modalContent.style.padding = '20px';    // הגדלת הריפוד
+        // הגדרות גודל משופרות
+        modalContent.style.width = '95%';          // רוחב גדול יותר
+        modalContent.style.maxWidth = '1400px';    // רוחב מקסימלי גדול יותר
+        modalContent.style.height = '85vh';        // גובה גדול יותר
+        modalContent.style.padding = '25px';       // ריפוד גדול יותר
+        modalContent.style.margin = '30px auto';   // שוליים קטנים יותר מלמעלה
         
         const closeButton = document.createElement('span');
         closeButton.className = 'close-button';
@@ -906,15 +1179,16 @@ document.getElementById('update2-btn').onclick = function() {
             teamsModal.style.display = 'none';
         };
         
-        // יצירת iframe לטעינת הדף המלא
+        // יצירת iframe - עכשיו עם גובה מלא כי אין כותרת
         const iframe = document.createElement('iframe');
         iframe.src = 'teams.html';
         iframe.style.width = '100%';
-        iframe.style.height = '100%';
+        iframe.style.height = '100%';  // גובה מלא כי אין כותרת
         iframe.style.border = 'none';
         iframe.style.borderRadius = '8px';
         
         modalContent.appendChild(closeButton);
+        // הסרנו את הכותרת
         modalContent.appendChild(iframe);
         teamsModal.appendChild(modalContent);
         document.body.appendChild(teamsModal);
@@ -922,18 +1196,41 @@ document.getElementById('update2-btn').onclick = function() {
     
     // הצגת המודל
     document.getElementById('teamsModal').style.display = 'block';
+}
+    summitScheduleBtn.onclick = function() {
+        summitScheduleModal.style.display = "block";
+    }
     
-    // סגירת המודל בלחיצה מחוץ לתוכן
+    importantInfoBtn.onclick = function() {
+        importantInfoModal.style.display = "block";
+    }
+    
+    // סגירת המודלים בלחיצה על X
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = "none";
+            });
+        });
+    });
+    
+    // סגירת המודלים בלחיצה מחוץ לתוכן
     window.onclick = function(event) {
-        const teamsModal = document.getElementById('teamsModal');
-        if (event.target == teamsModal) {
-            teamsModal.style.display = 'none';
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
         }
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    };
-};
+    }
+    
+
+    
+    // Show initial section
+    showSection('section1a');
+});
+function printSchedule() {
+    // פשוט פותח את תיבת הדו-שיח של ההדפסה המובנית של הדפדפן
+    window.print();
+}
     </script>
 </body>
 </html>
